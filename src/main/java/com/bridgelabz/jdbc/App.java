@@ -16,8 +16,7 @@ public class App
             e.printStackTrace();
         }
         Connection connection = null;
-       // Statement stmt = null;
-        PreparedStatement preparedStatement = null;
+        Statement stmt = null;
         //jdbc:mysql://localhost:3306/emp?user=root&password=root
         //jdbc:derby:testdb
         try {
@@ -27,28 +26,17 @@ public class App
 
 
             //3. Create statement
-         //   stmt = connection.createStatement();
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Enter employee name: ");
-            String name = sc.next();
-            System.out.println("Enter new salary");
-            int salary = sc.nextInt();
+            stmt = connection.createStatement();
+//            Scanner sc = new Scanner(System.in);
+//            String name = sc.next();
+//            int id = sc.nextInt();
 //            String date = sc.next();
-            String query = "update employee_payroll set salary =? where name = ? ;";
-            preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1,salary);
-            preparedStatement.setString(2,name);
-            int result = preparedStatement.executeUpdate();
-            if (result>0){
-                System.out.println("Salary updated Successfully");
-            }
-
 
 
             //4 Execute query
 //            String query = "select * from employee_payroll;";
-          //  String query = "update employee_payroll set salary='30000' where name = 'Shubham';";
-          //  int result = stmt.executeUpdate(query);
+            String query = "update employee_payroll set salary='30000' where name = 'Shubham';";
+            int result = stmt.executeUpdate(query);
 //            ResultSet result = stmt.executeQuery(query);
 //            while (result.next()) {
 //                String id = result.getString(1);
@@ -63,9 +51,9 @@ public class App
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            if(preparedStatement != null) {
+            if(stmt != null) {
                 try {
-                    preparedStatement.close();
+                    stmt.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
